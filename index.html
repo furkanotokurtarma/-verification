@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>🛡️ DDoS & Bot Engelleyici</title>
   <style>
     * {
@@ -125,10 +126,23 @@
       box-shadow: 0 0 20px #00ffcc;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       #verify-button {
         width: 100%;
-        font-size: 14px;
+        font-size: 18px;
+        padding: 20px;
+      }
+
+      #command-line {
+        font-size: 18px;
+      }
+
+      #success-message h2 {
+        font-size: 24px;
+      }
+
+      #success-message p {
+        font-size: 18px;
       }
     }
   </style>
@@ -251,6 +265,7 @@
         window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
         setTimeout(() => {
+          // Burada ana sayfaya yönlendirme yapılacak
           window.location.href = "https://furkanotokurtarma.github.io/- ";
         }, 2000);
       }
