@@ -1,281 +1,92 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🛡️ DDoS & Bot Engelleyici</title>
+  <meta charset="UTF-8">
+  <title>DDoS & Bot Koruma</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background-color: #000;
-      font-family: 'Courier New', Courier, monospace;
-      color: #00ffcc;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    #terminal {
-      width: 100%;
-      height: 100%;
-      padding: 20px;
+      background: linear-gradient(135deg, #232526, #414345);
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
     }
-
-    #logs {
-      flex-grow: 1;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      padding-right: 10px;
+    .shield {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      animation: pulse 1.5s infinite;
     }
-
-    .log-line {
-      margin-bottom: 8px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s ease-out;
+    @keyframes pulse {
+      0% { transform: scale(1); color: #00e6a7; }
+      50% { transform: scale(1.1); color: #00bfff; }
+      100% { transform: scale(1); color: #00e6a7; }
     }
-
-    .log-line.show {
-      opacity: 1;
-      transform: translateY(0);
+    .title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
     }
-
-    .green { color: #00ff00; }
-    .red { color: #ff3333; }
-    .yellow { color: #ffff33; }
-    .cyan { color: #00ffff; }
-
-    #command-line {
-      margin-top: 10px;
-      font-size: 16px;
+    .desc {
+      font-size: 1.1rem;
+      color: #b2bec3;
+      margin-bottom: 30px;
+      text-align: center;
+      max-width: 400px;
     }
-
-    .cursor-blink {
-      display: inline-block;
-      animation: blink 1s infinite;
+    .loader {
+      border: 6px solid #222;
+      border-top: 6px solid #00e6a7;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px auto;
     }
-
-    @keyframes blink {
-      from { opacity: 1; }
-      to { opacity: 0; }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
     }
-
-    #verify-button-container {
+    .success {
+      display: none;
+      color: #00e6a7;
+      font-size: 1.2rem;
       margin-top: 20px;
-      text-align: center;
-    }
-
-    #verify-button {
-      padding: 15px 30px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    #verify-button:hover {
-      background-color: #0056b3;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    #success-message {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 20px;
-    }
-
-    #logs::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    #logs::-webkit-scrollbar-track {
-      background: #111;
-    }
-
-    #logs::-webkit-scrollbar-thumb {
-      background: #00ffcc;
-      border-radius: 4px;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), repeating-linear-gradient(45deg, rgba(0, 255, 204, 0.05), rgba(0, 255, 204, 0.05) 10px, transparent 10px, transparent 20px);
-      z-index: -1;
-    }
-
-    #terminal {
-      box-shadow: 0 0 20px #00ffcc;
-    }
-
-    @media (max-width: 768px) {
-      #verify-button {
-        width: 100%;
-        font-size: 18px;
-        padding: 20px;
-      }
-
-      #command-line {
-        font-size: 18px;
-      }
-
-      #success-message h2 {
-        font-size: 24px;
-      }
-
-      #success-message p {
-        font-size: 18px;
-      }
     }
   </style>
 </head>
 <body>
-  <div id="terminal">
-    <div id="logs"></div>
-    <div id="command-line">
-      <span class="cursor-blink">█</span>
-    </div>
-    <div id="verify-button-container" class="hidden">
-      <button id="verify-button">Butona basılı tut ve geç</button>
-    </div>
-    <div id="success-message" class="hidden">
-      <h2>✅ Erişim Onaylandı</h2>
-      <p>Sisteme giriş yapabilirsiniz.</p>
-    </div>
+  <div class="shield">🛡️</div>
+  <div class="title">DDoS & Bot Koruma Aktif</div>
+  <div class="desc">
+    Güvenliğiniz için tarayıcınız doğrulanıyor.<br>
+    Lütfen birkaç saniye bekleyin...
   </div>
-
+  <div class="loader"></div>
+  <div class="success" id="successMsg">Doğrulama başarılı! Yönlendiriliyorsunuz...</div>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const logs = document.getElementById("logs");
-      const verifyButtonContainer = document.getElementById("verify-button-container");
-      const successMessage = document.getElementById("success-message");
-
-      function writeLog(message, type = "cyan") {
-        return new Promise(resolve => {
-          const line = document.createElement("div");
-          line.className = `log-line ${type}`;
-          line.textContent = message;
-          logs.appendChild(line);
-
-          setTimeout(() => {
-            line.classList.add("show");
-            resolve();
-          }, 50);
-        });
+    // Basit JS doğrulama (botlar için engel)
+    function isHuman() {
+      return navigator.webdriver !== true &&
+        window.outerWidth > 0 &&
+        window.outerHeight > 0 &&
+        'onmousemove' in window;
+    }
+    setTimeout(function() {
+      if(isHuman()) {
+        document.querySelector('.loader').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+        setTimeout(function() {
+          window.location.href = '/';
+        }, 1500);
+      } else {
+        document.body.innerHTML = '<h2 style="color:#ff7675;text-align:center;">Bot Erişimi Engellendi!</h2>';
       }
-
-      async function simulateSecurityCheck() {
-        await writeLog("[SYSTEM] Güvenlik duvarı başlatılıyor...", "green");
-        await delay(1000);
-
-        await writeLog("[IP_CHECK] IP adresi analiz ediliyor...", "cyan");
-        await delay(1500);
-        const ipBlocked = Math.random() < 0.1;
-        if (ipBlocked) {
-          await writeLog("[IP_CHECK] Şüpheli IP tespit edildi. Erişim engellendi.", "red");
-          await writeLog("[FIREWALL] Güvenlik protokolleri aktif!", "red");
-          return;
-        } else {
-          await writeLog("[IP_CHECK] IP güvenli.", "green");
-        }
-
-        await writeLog("[RATE_LIMIT] İstek hızı ölçülüyor...", "cyan");
-        await delay(1500);
-        const rateExceeded = Math.random() < 0.1;
-        if (rateExceeded) {
-          await writeLog("[RATE_LIMIT] Aşırı istek tespit edildi.", "red");
-          return;
-        } else {
-          await writeLog("[RATE_LIMIT] İstek hızı normal.", "green");
-        }
-
-        await writeLog("[HUMAN_VERIFY] Kullanıcı doğrulama sürecine geçiliyor...", "yellow");
-        await delay(1000);
-
-        startVerificationProcess();
-      }
-
-      function startVerificationProcess() {
-        verifyButtonContainer.classList.remove("hidden");
-
-        const button = document.getElementById("verify-button");
-
-        let pressStartTime = null;
-        let verificationTimeout = null;
-
-        function startHold() {
-          pressStartTime = Date.now();
-          button.style.backgroundColor = "#00aa00";
-          verificationTimeout = setTimeout(() => {
-            finishVerification();
-          }, 3000);
-        }
-
-        function cancelHold() {
-          if (verificationTimeout) {
-            clearTimeout(verificationTimeout);
-            verificationTimeout = null;
-            button.style.backgroundColor = "#007bff";
-            writeLog("[HUMAN_VERIFY] Doğrulama iptal edildi.", "red");
-          }
-        }
-
-        function finishVerification() {
-          button.style.backgroundColor = "#00ff00";
-          button.disabled = true;
-          writeLog("[HUMAN_VERIFY] İnsan kullanıcı doğrulandı.", "green");
-          showSuccessMessage();
-        }
-
-        button.addEventListener("mousedown", startHold);
-        button.addEventListener("mouseup", cancelHold);
-        button.addEventListener("mouseleave", cancelHold);
-
-        button.addEventListener("touchstart", (e) => {
-          e.preventDefault();
-          startHold();
-        });
-
-        button.addEventListener("touchend", (e) => {
-          e.preventDefault();
-          cancelHold();
-        });
-      }
-
-      function showSuccessMessage() {
-        successMessage.classList.remove("hidden");
-        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-
-        // DOĞRULAMA TAMAMLANDIĞINDA YÖNLENDİRME
-        setTimeout(() => {
-          window.location.href = "https://furkanotokurtarma.github.io/-/";
-        }, 2000);
-      }
-
-      function delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
-
-      simulateSecurityCheck();
-    });
+    }, 2500);
   </script>
 </body>
-</html>
